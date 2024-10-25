@@ -1,0 +1,20 @@
+- name: Install SNMP RPMs
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - net-snmp
+    - net-snmp-utils
+
+- name: Stop SNMP
+  ansible.builtin.service:
+    name: snmpd
+    state: stopped
+
+- name: Configure SNMP Authentification
+  ansible.builtin.shell: net-snmp-create-v3-user -ro -a "{{ snmp_password }}" -x "{{ snmp_privpass }}" -X AES "{{ snmp_user }}"
+
+- name: Start SNMP
+  ansible.builtin.service:
+    name: snmpd
+    state: started

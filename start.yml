@@ -1,0 +1,9 @@
+- name: SNMP
+  hosts: demo
+  become: true
+  roles:
+    - role: snmp
+      vars:
+        snmp_user: <REPLACE_ME>
+        snmp_password: <REPLACE_ME>
+        snmp_privpass: <REPLACE_ME>
